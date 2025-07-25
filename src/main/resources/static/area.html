@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Área</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de Área do Terreno</h1>
+    <form id="areaForm" onsubmit="return false;">
+        <div class="form-group">
+            <label for="largura">Largura (m):</label>
+            <input type="number" id="largura" placeholder="Digite a largura" required>
+        </div>
+        <div class="form-group">
+            <label for="comprimento">Comprimento (m):</label>
+            <input type="number" id="comprimento" placeholder="Digite o comprimento" required>
+        </div>
+        <button type="button" onclick="calcularArea()">Calcular Área</button>
+    </form>
+    <h2 id="resultado"></h2>
+
+    <script>
+        function calcularArea() {
+            const largura = document.getElementById('largura').value;
+            const comprimento = parseFloat(document.getElementById('comprimento').value);
+
+            if (isNaN(largura) || isNaN(comprimento) || largura <= 0 || comprimento <= 0) {
+                document.getElementById('resultado').innerText = "Por favor, insira valores válidos!";
+                return;
+            }
+
+            const area = largura * comprimento;
+            document.getElementById('resultado').innerText = 'A área do terreno é ' + area.toFixed(2) + 'm².';
+        }
+    </script>
+</body>
+</html>

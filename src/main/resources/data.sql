@@ -1,0 +1,1 @@
+ALTER TABLE IF EXISTS tb_book ALTER COLUMN id SET DEFAULT nextval('tb_book_seq'::regclass);

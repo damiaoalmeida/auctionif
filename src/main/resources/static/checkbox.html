@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkbox e Select Sincronizados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sincronização entre Select e Checkbox</h1>
+    <form>
+        <div class="form-group">
+            <label for="selectOption">Selecione uma opção:</label>
+            <select id="selectOption" onchange="atualizarCheckbox()">
+                <option value="true">Sim</option>
+                <option value="false" selected="selected">Não</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="checkbox">Checkbox:</label>
+            <input type="checkbox" id="checkbox" onclick="atualizarSelect()">
+        </div>
+    </form>
+
+    <script>
+        // Atualiza o estado do checkbox com base no valor do select
+        function atualizarCheckbox() {
+            const selectValue = document.getElementById('selectOption').value;
+            const checkbox = document.getElementById('checkbox');
+            checkbox.checked = (selectValue === "true");
+        }
+
+        // Atualiza o valor do select com base no estado do checkbox
+        function atualizarSelect() {
+            const checkbox = document.getElementById('checkbox');
+            const select = document.getElementById('selectOption');
+            select.value = checkbox.checked ? "true" : "false";
+        }
+    </script>
+</body>
+</html>

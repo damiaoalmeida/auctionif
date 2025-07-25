@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário com Inputs</title>
+</head>
+<body>
+    <h1>Exemplo de Formulário</h1>
+    <form action="https://webhook.site/9ba19750-50ab-4d85-a224-3a73edf7c030" method="post">
+        <!-- Campo de texto -->
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" placeholder="Digite seu nome">
+        <br><br>
+
+        <!-- Botões de rádio -->
+        <label>Gênero:</label>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Masculino</label>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Feminino</label>
+        <input type="radio" id="other" name="gender" value="other">
+        <label for="other">Outro</label>
+        <br><br>
+
+        <!-- Caixa de seleção -->
+        <label for="hobbies">Hobbies:</label>
+        <input type="checkbox" id="reading" name="hobbies" value="reading">
+        <label for="reading">Ler</label>
+        <input type="checkbox" id="sports" name="hobbies" value="sports">
+        <label for="sports">Esportes</label>
+        <input type="checkbox" id="music" name="hobbies" value="music">
+        <label for="music">Música</label>
+        <br><br>
+
+        <!-- Área de texto -->
+        <label for="comments">Comentários:</label>
+        <textarea id="comments" name="comments" rows="4" cols="40" placeholder="Deixe seus comentários aqui"></textarea>
+        <br><br>
+
+        <!-- Caixa de seleção (dropdown) -->
+        <label for="country">País:</label>
+        <select id="country" name="country">
+            <option value="br">Brasil</option>
+            <option value="us">Estados Unidos</option>
+            <option value="uk">Reino Unido</option>
+            <option value="in">Índia</option>
+        </select>
+        <br><br>
+
+        <!-- Upload de arquivo -->
+        <label for="file">Envie seu arquivo:</label>
+        <input type="file" id="file" name="file">
+        <br><br>
+
+        <!-- Botão de envio -->
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>

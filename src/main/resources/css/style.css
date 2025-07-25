@@ -1,0 +1,37 @@
+p {
+	color: red;
+	font-size: 17px;
+	text-indent: 50px;
+	font-size:10px;
+}
+
+#paragrafo-1 {
+	color: red;
+	font-size: 10px;
+}
+
+#paragrafo-2 {
+	color: blue;
+	font-size: 14px;
+}
+
+.centro {
+	text-align: center;
+}
+
+.box {
+	margin: 25px;
+	border: solid;
+}
+
+.margin-auto {
+	width: 500px;
+	border: solid;
+}
+
+.padding-ex {
+	width: 500px;
+	border: 1px solid blue;
+	margin: auto;
+	padding: 10px;
+}

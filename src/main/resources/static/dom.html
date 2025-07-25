@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   	<script>
+   	  var clicks = 0
+      function mudarTexto() {
+      	console.log(document.body.firstElementChild.innerHTML);
+      	document.body.firstElementChild.innerHTML = "Clicks " + (++clicks)
+      }
+    </script>
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Exemplo DOM</title>
+  </head>
+  <body>
+    <h1 id="titulo">Olá, Mundo!</h1>
+    <button onclick="mudarTexto()">Clique Aqui</button>
+  </body>
+</html>
