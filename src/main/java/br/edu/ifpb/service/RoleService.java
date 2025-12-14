@@ -23,4 +23,8 @@ public class RoleService {
 		List<Role> list = roleRepository.findAll(example);
 		return list.get(0);
 	}
+
+	public List<Role> findAll() {
+		return roleRepository.findAll();
+	}
 }

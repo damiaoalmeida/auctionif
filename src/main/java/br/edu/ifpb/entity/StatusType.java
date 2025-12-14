@@ -1,17 +1,17 @@
 package br.edu.ifpb.entity;
 
-public enum GenderType {
-	MALE("Male"), 
-	FEMALE("Female"), 
-	OTHER("Other"), 
-	NOT_SPECIFY("Not Specify");
-	
+public enum StatusType {
+	ATIVO("Ativo"),
+	INATIVO("Inativo"),
+	BLOQUEADO("Bloqueado"),
+	PENDENTE("Pendente");
+
 	private final String displayName;
-	
-	GenderType(String displayName){
+
+	StatusType(String displayName) {
 		this.displayName = displayName;
 	}
-	
+
 	public String getDisplayName() {
 		return displayName;
 	}

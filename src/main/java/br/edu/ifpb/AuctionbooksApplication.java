@@ -1,24 +1,11 @@
 package br.edu.ifpb;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.nio.file.Files;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.util.ResourceUtils;
-
-import br.edu.ifpb.entity.User;
-import br.edu.ifpb.entity.UserContent;
-import br.edu.ifpb.repository.UserRepository;
 
 @SpringBootApplication
 public class AuctionbooksApplication implements CommandLineRunner {
-
-	@Autowired
-    private UserRepository repository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AuctionbooksApplication.class, args);

@@ -1,5 +1,6 @@
 package br.edu.ifpb.restcontroller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,13 +20,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.edu.ifpb.entity.Role;
 import br.edu.ifpb.entity.User;
 import br.edu.ifpb.entity.dto.UserDTO;
+import br.edu.ifpb.entity.dto.UserSaveDTO;
+import br.edu.ifpb.service.PhotoService;
 import br.edu.ifpb.service.RoleService;
 import br.edu.ifpb.service.UserService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/user")
@@ -32,15 +39,48 @@ public class UserRestController extends RestAppController {
 
 	@Autowired
 	protected UserService userService;
-	
+
 	@Autowired
 	protected RoleService roleService;
 
 	@Autowired
 	protected PasswordEncoder passwordEncoder;
 
+	@Autowired
+	protected PhotoService photoService;
+
+	@PostMapping("save")
+	public ResponseEntity<?> save(
+			@Validated @RequestPart("user") UserSaveDTO usersavedto,
+			@RequestPart("foto") MultipartFile foto) {
+
+		try {
+			UserDTO userdto = userService.save(usersavedto, foto);
+			return new ResponseEntity<UserDTO>(userdto, HttpStatus.CREATED);
+		} catch(IOException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	//localhost:8080/api/user/find/filter/page?firstName=a&lastName=a&page=0&size=5&sort=lastName,asc
+	@GetMapping("page/filter")
+	public ResponseEntity<Page<UserDTO>> getAllUsersByFilter(
+			@RequestParam(required = false) String firstName,
+			@RequestParam(required = false) String lastName, 
+			Pageable pageable) {
+
+		User example = new User();
+		example.setFirstName(firstName);
+		example.setLastName(lastName);
+
+		Page<UserDTO> page = userService.findByExampleMatch(example, pageable);
+		return ResponseEntity.ok(page);
+	}
+	
+	
+
 	@PostMapping("register")
-    public ResponseEntity<?> register(@RequestBody User user) {
+    public ResponseEntity<?> register(@Valid @RequestBody User user) {
 		try {
 	        // Salvar no banco de dados ou processar
 			user.setId(null);
@@ -49,6 +89,7 @@ public class UserRestController extends RestAppController {
 			UserDTO udto = UserDTO.fromEntity(user);
 			return new ResponseEntity<UserDTO>(udto, HttpStatus.CREATED);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
     }
@@ -229,11 +270,11 @@ public class UserRestController extends RestAppController {
             @RequestParam(required = false) String lastName,
             Pageable pageable) {
 
-		User filter = new User();
-		filter.setFirstName(firstName);
-		filter.setLastName(lastName);
+		User example = new User();
+		example.setFirstName(firstName);
+		example.setLastName(lastName);
 
-		Page<UserDTO> page = userService.findByExampleMatch(filter, pageable);
+		Page<UserDTO> page = userService.findByExampleMatch(example, pageable);
 		return ResponseEntity.ok(page);
 	}
 }

@@ -1,5 +1,6 @@
 package br.edu.ifpb.entity.dto;
 
+import java.util.Date;
 import java.util.List;
 
 import br.edu.ifpb.entity.Role;
@@ -15,7 +16,14 @@ public class UserDTO {
 	private String firstName;
 	private String lastName;
 	private String login;
+	private String gender;
+	private Date dateOfBirth;
+	private String status;
 	private List<Role> roles;
+
+	public UserDTO() {
+		
+	}
 
 	public UserDTO(Long id, String firstName, String lastName, String login) {
 		this.id = id;
@@ -25,12 +33,13 @@ public class UserDTO {
 	}
 	
 	public static UserDTO fromEntity(User user) {
-        return new UserDTO(
-        		user.getId(), 
-        		user.getFirstName(), 
-        		user.getLastName(),
-        		user.getLogin(),
-        		user.getRoles());
+//        return new UserDTO(
+//        		user.getId(), 
+//        		user.getFirstName(), 
+//        		user.getLastName(),
+//        		user.getLogin(),
+//        		user.getRoles());
+		return null;
     }
 	
 	public User fromDTO() {

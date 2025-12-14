@@ -28,6 +28,8 @@ public class UserContent implements Serializable {
 	@Lob
 	private byte[] photo;
 	
+	private String pathPhoto;
+	
 //	@OneToOne(fetch = FetchType.EAGER, mappedBy = "content")
 //	private User user;
 //

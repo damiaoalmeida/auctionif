@@ -29,11 +29,11 @@ import jakarta.servlet.http.HttpServletResponse;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-	private final JwtAuthFilter jwtAuthFilter;
-
-	public WebConfig(JwtAuthFilter jwtAuthFilter) {
-        this.jwtAuthFilter = jwtAuthFilter;
-    }
+//	private final JwtAuthFilter jwtAuthFilter;
+//
+//	public WebConfig(JwtAuthFilter jwtAuthFilter) {
+//        this.jwtAuthFilter = jwtAuthFilter;
+//    }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -76,21 +76,21 @@ public class WebConfig implements WebMvcConfigurer {
         	.cors(Customizer.withDefaults())
         	.csrf(csrf -> csrf.disable())
         	.authorizeHttpRequests(auth -> auth
-        			.requestMatchers("/api/auth/**").permitAll()
-        			.requestMatchers(HttpMethod.POST, "/api/user/register").hasRole(ADMIN)
-        			.requestMatchers(HttpMethod.POST, "/api/user/basicregister").permitAll()
-        			.requestMatchers(HttpMethod.DELETE, "/api/user/delete/**").hasRole(ADMIN)
-        			.requestMatchers("/api/user/list").hasAnyRole(ADMIN, MANAGER)
-        			.requestMatchers(HttpMethod.PUT, "/api/user/update/**").hasRole(ADMIN)
-        			.requestMatchers(HttpMethod.PUT, "/api/user/updatenorules/**")
-        							.hasAnyRole(ADMIN, MANAGER)
-        			.anyRequest().authenticated()
+//        			.requestMatchers("/api/auth/**").permitAll()
+//        			.requestMatchers(HttpMethod.POST, "/api/user/register").hasRole(ADMIN)
+//        			.requestMatchers(HttpMethod.POST, "/api/user/basicregister").permitAll()
+//        			.requestMatchers(HttpMethod.DELETE, "/api/user/delete/**").hasRole(ADMIN)
+//        			.requestMatchers("/api/user/list").hasAnyRole(ADMIN, MANAGER)
+//        			.requestMatchers(HttpMethod.PUT, "/api/user/update/**").hasRole(ADMIN)
+//        			.requestMatchers(HttpMethod.PUT, "/api/user/updatenorules/**")
+//        							.hasAnyRole(ADMIN, MANAGER)
+//        			.anyRequest().authenticated()
         			
 //        			.requestMatchers(HttpMethod.PUT, "/api/user/update/**").hasRole("ADMIN")
-//        			.anyRequest().permitAll()
+        			.anyRequest().permitAll()
         	)
-        	.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        	.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+//        	.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//        	.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
         	;
 
         http.logout(

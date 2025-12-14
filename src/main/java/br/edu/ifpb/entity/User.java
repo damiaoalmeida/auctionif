@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.edu.ifpb.entity.validation.EqualPasswords;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,11 +24,13 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -39,22 +42,22 @@ import lombok.NoArgsConstructor;
 public class User implements UserDetails {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
-		    generator = "user_seq_gen")
-	@SequenceGenerator(name = "user_seq_gen", 
-				sequenceName = "tb_user_seq", 
-				allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@NotBlank(message = "{nome.vazio}")
 	private String firstName;
 	
 	private String lastName;
 
 	@Column(unique = true)
+	@Email(message = "{email.invalido}")
 	private String login;
-//	private String email;
 
 	private String password;
+
+	@Transient
+	private String password2;
 
 	@OneToMany(fetch = FetchType.EAGER, 
 			cascade = {CascadeType.ALL}, 
@@ -72,7 +75,11 @@ public class User implements UserDetails {
 	
 	@Column(name="date_birth")
 	@Temporal(TemporalType.DATE)
+	@NotNull(message = "{data.vazio}")
 	private Date dateOfBirth;
+
+	@Enumerated(EnumType.STRING)
+	private StatusType status;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
@@ -129,7 +136,6 @@ public class User implements UserDetails {
 	@Override
 	public String getUsername() {
 		return login;
-//		return email;
 	}
 
 	public void addRole(Role role) {
